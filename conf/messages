@@ -1,0 +1,13 @@
+# App name
+app.name = DSL Project
+
+
+#Title
+page.title = User Registration
+login = Login
+
+# Flash Scope
+flash.success = success
+flash.error = error
+
+
