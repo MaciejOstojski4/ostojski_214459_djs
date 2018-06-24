@@ -1,0 +1,16 @@
+@(crypto: Crypto)(implicit request: RequestHeader, messages: Messages)
+@main(Messages("app.name")) {
+    <nav class="wallet-navbar">
+        <div class="wallet-navbar-title"><a href="/userCryptos">CryptoWallet</a></div>
+        <div class="wallet-navbar-links">
+            <a class="wallet-navbar-logout" href="/logout">Logout</a>
+        </div>
+    </nav>
+    <section class="wallet-container">
+        <div id="crypto-shortcut" data-shortcut="@crypto.shortcut"></div>
+        <article class="wallet-column">
+            <p class="wallet-cryptoPage-name">@crypto.name</p>
+            <p id="crypto-value" class="wallet-cryptoPage-rate"></p>
+        </article>
+    </section>
+}

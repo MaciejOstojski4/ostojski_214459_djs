@@ -1,7 +1,7 @@
 @(cryptos: Seq[Crypto], cryptoForm: Form[models.CryptoFormData], crypto: Crypto)(implicit request: RequestHeader, messages: Messages)
 @main(Messages("app.name")) {
     <nav class="wallet-navbar">
-        <div class="wallet-navbar-title">CryptoWallet</div>
+        <div class="wallet-navbar-title"><a href="/userCryptos">CryptoWallet</a></div>
         <div class="wallet-navbar-links">
             <a class="wallet-navbar-logout" href="/logout">Logout</a>
         </div>
@@ -13,15 +13,21 @@
                 <section class="wallet-crypto-container">
                     <table class="wallet-crypto-table">
                         <tr>
-                            <th class="wallet-crypto-table-header">@messages("cryptocurrency")</th>
+                            <th class="wallet-crypto-table-header">
+                                @messages("cryptocurrency")
+                            </th>
                             <th  class="wallet-crypto-table-header">@messages("price")</th>
+                            <th  class="wallet-crypto-table-header">@messages("shortcut")</th>
                             <th  class="wallet-crypto-table-header">@messages("edit")</th>
                             <th  class="wallet-crypto-table-header">@messages("delete")</th>
                         </tr>
                         @for(crypto <- cryptos) {
                             <tr>
-                                <td class="wallet-crypto-name">@crypto.name</td>
+                                <td class="wallet-crypto-name">
+                                    <a href="/getCrypto/@crypto.id">@crypto.name</a>
+                                </td>
                                 <td class="wallet-crypto-price">@crypto.price</td>
+                                <td class="wallet-crypto-name">@crypto.shortcut</td>
                                 <td class="wallet-crypto-table-cell"><a href="userCryptos?id=@crypto.id" class="material-icons wallet-crypto-action-icon">edit</a></td>
                                 <td class="wallet-crypto-table-cell"><a href="deleteCrypto/@crypto.id" class="material-icons wallet-crypto-action-icon">remove_circle</a></td>
                             </tr>
@@ -55,6 +61,15 @@
                             }
                         }
                     </div>
+                    <div class="form-group">
+                        <label class="wallet-form-label" for="shortcut">Shortcut</label>
+                        <input class="form-control" type="text" name="shortcut" @if(cryptoForm("shortcut").value != None) {value="@cryptoForm("shortcut").value" }>
+                        @if(cryptoForm != null) {
+                            @for(error <- cryptoForm("shortcut").errors) {
+                                <span class="my-error">@error.messages</span>
+                            }
+                        }
+                    </div>                    
                     <div class="form-group">
                         @if(request.getQueryString("id") == None) {
                             <input class="wallet-buy-submit" type="submit" value="Buy crypto">

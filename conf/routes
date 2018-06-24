@@ -31,6 +31,7 @@ GET         /userCryptos                        @controllers.UserController.user
 POST        /addCrypto                          @controllers.UserController.addCrypto
 POST        /editCrypto                         @controllers.UserController.editCrypto
 GET         /deleteCrypto/:id                   @controllers.UserController.deleteCrypto(id : Long)
+GET         /getCrypto/:id                          @controllers.UserController.crypto(id : Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                     controllers.Assets.at(path="/public", file)

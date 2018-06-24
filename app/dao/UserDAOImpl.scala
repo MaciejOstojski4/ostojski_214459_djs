@@ -43,8 +43,10 @@ class UserDAOImpl @Inject()(dbConfigProvider: DatabaseConfigProvider) extends Us
 
     def price = column[String]("price")
 
+    def shortcut = column[String]("shortcut")
+
     override def * =
-      (id, userId, name, price) <> (Crypto.tupled, Crypto.unapply)
+      (id, userId, name, price, shortcut) <> (Crypto.tupled, Crypto.unapply)
 
 
     def user = foreignKey("user_id", userId, users)(_.id)

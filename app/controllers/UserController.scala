@@ -28,11 +28,7 @@ class UserController @Inject()
 
   var errors = mutable.HashMap[String, String]()
 
-  /*
-  Cryptos
-   */
   def userCryptos = deadbolt.SubjectPresent()() { implicit request =>
-
     val email = request.session.get("email").get
     val user = Await.result(userService.findByEmail(email), Duration.Inf).get
     val cryptos = Await.result(userService.getUserCryptos(user.id), Duration.Inf).seq
@@ -40,7 +36,7 @@ class UserController @Inject()
     if (request.getQueryString("id") != None) {
       val cryptoId = request.getQueryString("id").get.toLong
       val userCrypto = Await.result(userService.getCrypto(cryptoId), Duration.Inf).get
-      val cryptoForm = CryptoForm.form.fill(CryptoFormData(userCrypto.name, userCrypto.price))
+      val cryptoForm = CryptoForm.form.fill(CryptoFormData(userCrypto.name, userCrypto.price, userCrypto.shortcut))
       Future(Ok(views.html.cryptos(cryptos, cryptoForm, userCrypto)))
     } else {
       println(cryptos)
@@ -56,7 +52,7 @@ class UserController @Inject()
     cryptoForm.fold(
       errorForm => Future(BadRequest(views.html.cryptos(cryptos, errorForm, null))),
       data => {
-        val crypto = Crypto(0, user.id, data.name, data.price)
+        val crypto = Crypto(0, user.id, data.name, data.price, data.shortcut)
         userService.addCrypto(crypto)
         Future(Redirect(routes.UserController.userCryptos()))
       }
@@ -72,11 +68,16 @@ class UserController @Inject()
       errorForm => Future(BadRequest(views.html.cryptos(cryptos, errorForm, null))),
       data => {
         val cryptoId = request.body.asFormUrlEncoded.get("cryptoId")(0).toString.toLong
-        val crypto = Crypto(cryptoId, user.id, data.name, data.price)
+        val crypto = Crypto(cryptoId, user.id, data.name, data.price, data.shortcut)
         userService.updateCrypto(crypto)
         Future(Redirect(routes.UserController.userCryptos()))
       }
     )
+  }
+
+  def crypto(id: Long) = deadbolt.SubjectPresent()() { implicit request =>
+    val crypto = Await.result(userService.getCrypto(id), Duration.Inf).get
+    Future(Ok(views.html.crypto(crypto)))
   }
 
   def deleteCrypto(id: Long) = deadbolt.SubjectPresent()() {
