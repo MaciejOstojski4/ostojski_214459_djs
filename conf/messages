@@ -1,5 +1,5 @@
 # App name
-app.name = DSL Project
+app.name = CryptoWallet
 
 
 #Title
@@ -13,7 +13,8 @@ flash.error = error
 #Labels
 id = Id
 name = Name
-price = price
+cryptocurrency = Cryptocurrency
+price = price (USD)
 edit = Edit
 delete = Delete
 firstname = FirstName
@@ -21,3 +22,8 @@ lastname = LastName
 password = Password
 email = Email
 sign.in = Sign in
+login-form-header = Your cryptocurrency wallet
+login-form-subheader = Login form
+registration-redirect = You don't have digital wallet, sign up for free!
+register-form-header = Create your account and buy cryptocurrency
+register-form-subheader = Register form

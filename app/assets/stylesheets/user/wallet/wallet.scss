@@ -1,0 +1,114 @@
+@import '../../variables';
+
+.wallet-navbar {
+    @include flex-container();
+    padding: 20px 15px 10px 15px;
+    background-color: $bright-blue;
+}
+
+.wallet-navbar-title {
+    @extend %normal-text;
+    @include font-properties(600, $white, 32);
+    flex: 1;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.wallet-navbar-links {
+    flex: 1;
+    text-align: right;    
+}
+
+.wallet-navbar-links a {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 18);
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.wallet-navbar-links a:hover {
+    color: $dark-blue;
+}
+
+.wallet-container {
+    @include flex-container();
+}
+
+.wallet-column {
+    flex: 1;
+}
+
+.wallet-header {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 24);
+    margin: 50px 0 15px 15px;
+}
+
+.wallet-crypto-container {
+    padding: 0 15px;
+}
+
+.wallet-crypto-table {
+    margin: 0 0 20px 0;
+}
+
+.wallet-crypto-table,
+.wallet-crypto-table-header,
+.wallet-crypto-name,
+.wallet-crypto-price,
+.wallet-crypto-table-cell {
+    border: 2px solid $dark-blue;
+    text-align: center;
+    background-color: #B3E5FC;
+}
+
+.wallet-crypto-table-header {
+    @extend %normal-text;
+    @include font-properties(bold, $white, 18);
+    padding: 10px;
+}
+
+.wallet-crypto-name {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 16);
+    padding: 10px;
+}
+
+.wallet-crypto-price {
+    @extend %normal-text;
+    @include font-properties(bold, $gold, 16);
+    padding: 10px;
+}
+
+.wallet-crypto-action-icon {
+    color: $red;
+    text-decoration: none;
+    opacity: 0.5;
+    transition: 0.3s ease;
+}
+
+.wallet-crypto-action-icon:hover {
+    opacity: 1;
+    color: $red;
+    text-decoration: none;
+}
+
+.wallet-buy-header {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 24);
+    padding: 50px 0 15px 0;
+}
+
+.wallet-form-label {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 16); 
+}
+
+.wallet-buy-submit {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 20);
+    padding: 10px 25px;
+    background-color: $dark-blue;
+    border: none;
+    cursor: pointer;
+}

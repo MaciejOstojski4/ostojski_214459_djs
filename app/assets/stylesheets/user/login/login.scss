@@ -1,0 +1,74 @@
+@import '../../variables';
+
+.login-container {
+    @include height-range(100vh, 100vh);
+    @include width-range(100%, 100%);
+    @include flex-container(nowrap, column, center, center);
+    justify-content: center;
+}
+
+.login-form-header {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 36); 
+    flex-basis: 10%;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.login-form-header p:nth-of-type(2) {
+    font-size: 24px;
+}
+
+.login-form {
+    flex-basis: 30%;
+    @include width-range(50%, 50%);
+    background-color: $dark-blue;
+    padding: 30px;
+}
+
+.login-form-label {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 20);    
+}
+
+.login-form-input {
+    @extend %normal-text;
+    @include font-properties(normal, $black, 16);
+    border-radius: 0;
+}
+
+.login-submit {
+    @extend %normal-text;
+    @include font-properties(600, $white, 20);
+    padding: 10px 25px;
+    background-color: $bright-blue;
+    border: none;
+    cursor: pointer;
+}
+
+.login-redirect-container {
+    @include width-range(50%, 50%);    
+    @include flex-container();
+    margin: 15px 0 0 0;
+    flex-basis: 20%;
+}
+
+.login-redirect-text {
+    @extend %normal-text;
+    @include font-properties(normal, $white, 14);
+    margin: 0 15px 0 30px;
+}
+
+.login-redirect-button {
+    @extend %normal-text;
+    @include font-properties(600, $white, 14);
+    padding: 5px 15px;
+    background-color: $bright-blue;
+    border: none;
+    cursor: pointer;
+}
+
+.login-form-error {
+    @extend %normal-text;
+    @include font-properties(normal, $red, 14);
+}

@@ -49,11 +49,9 @@ class UserController @Inject()
   }
 
   def addCrypto = Action.async { implicit request =>
-
     val email = request.session.get("email").get
     val user = Await.result(userService.findByEmail(email), Duration.Inf).get
     val cryptos = Await.result(userService.getUserCryptos(user.id), Duration.Inf).seq
-
     val cryptoForm = CryptoForm.form.bindFromRequest()
     cryptoForm.fold(
       errorForm => Future(BadRequest(views.html.cryptos(cryptos, errorForm, null))),
@@ -89,9 +87,6 @@ class UserController @Inject()
       }
   }
 
-  /*
-  Login
-   */
   def login = deadbolt.SubjectNotPresent()() { implicit request =>
     Future(Ok(views.html.login(LoginForm.form, null)))
   }
@@ -119,9 +114,6 @@ class UserController @Inject()
       })
   }
 
-  /*
-  Registration
-   */
   def registration = deadbolt.SubjectNotPresent()() { implicit request =>
     Future(Ok(views.html.registration(RegistrationForm.form, errors)))
   }

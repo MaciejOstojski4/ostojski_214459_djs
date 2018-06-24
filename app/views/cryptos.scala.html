@@ -1,62 +1,68 @@
 @(cryptos: Seq[Crypto], cryptoForm: Form[models.CryptoFormData], crypto: Crypto)(implicit request: RequestHeader, messages: Messages)
 @main(Messages("app.name")) {
-    <a href="/logout">Logout</a>
-    <h1>User cryptos</h1>
-    @if(request.getQueryString("id") == None) {
-        <form method="post" action='@routes.UserController.addCrypto()'>
-        } else {
-        <form method="post" action='@routes.UserController.editCrypto()'>
-            <input type="hidden" name="cryptoId" value="@crypto.id">
+    <nav class="wallet-navbar">
+        <div class="wallet-navbar-title">CryptoWallet</div>
+        <div class="wallet-navbar-links">
+            <a class="wallet-navbar-logout" href="/logout">Logout</a>
+        </div>
+    </nav>
+    <section class="wallet-container">
+        <article class="wallet-column">
+            <h1 class="wallet-header">Your wallet</h1>
+            @if(cryptos.size != 0) {
+                <section class="wallet-crypto-container">
+                    <table class="wallet-crypto-table">
+                        <tr>
+                            <th class="wallet-crypto-table-header">@messages("cryptocurrency")</th>
+                            <th  class="wallet-crypto-table-header">@messages("price")</th>
+                            <th  class="wallet-crypto-table-header">@messages("edit")</th>
+                            <th  class="wallet-crypto-table-header">@messages("delete")</th>
+                        </tr>
+                        @for(crypto <- cryptos) {
+                            <tr>
+                                <td class="wallet-crypto-name">@crypto.name</td>
+                                <td class="wallet-crypto-price">@crypto.price</td>
+                                <td class="wallet-crypto-table-cell"><a href="userCryptos?id=@crypto.id" class="material-icons wallet-crypto-action-icon">edit</a></td>
+                                <td class="wallet-crypto-table-cell"><a href="deleteCrypto/@crypto.id" class="material-icons wallet-crypto-action-icon">remove_circle</a></td>
+                            </tr>
+                    } </table>
+                </section>
             }
-    <table>
-        <tr>
-            <td>Name</td>
-            <td><input type="text" name="name"
-                @if(cryptoForm("name").value != None) {
-                    value="@cryptoForm("name").value" } ></td>
-            @if(cryptoForm != null) {
-                @for(error <- cryptoForm("name").errors) {
-                    <td class="my-error">@error.messages</td>
-                }
-            }
-        </tr>
-        <tr>
-            <td>Price</td>
-            <td><input type="text" name="price"
-                @if(cryptoForm("price").value != None) {
-                    value="@cryptoForm("price").value" } ></td>
-            @if(cryptoForm != null) {
-                @for(error <- cryptoForm("price").errors) {
-                    <td class="my-error">@error.messages</td>
-                }
-            }
-        </tr>
-        <tr>
-        @if(request.getQueryString("id") == None) {
-            <td><input class="addButton" type="submit" value="Add crypto"></td>
-        } else {
-            <td><input class="addButton" type="submit" value="Edit crypto"></td>
-        }
-        </tr>
-    </table>
-</form>
-    @if(cryptos.size != 0) {
-        <table class="cryptosTable">
-            <tr>
-                <th>@messages("id")</th>
-                <th>@messages("name")</th>
-                <th>@messages("price")</th>
-                <th>@messages("edit")</th>
-                <th>@messages("delete")</th>
-            </tr>
-            @for(crypto <- cryptos) {
-                <tr>
-                    <td>@crypto.id</td>
-                    <td>@crypto.name</td>
-                    <td>@crypto.price</td>
-                    <td><a href="userCryptos?id=@crypto.id">@messages("edit")</a></td>
-                    <td><a href="deleteCrypto/@crypto.id">@messages("delete")</a></td>
-                </tr>
-            } </table>
-    }
+        </article>
+        <article class="wallet-column">
+            <div class="wallet-buy-header">Buy some crypto and be rich</div>                
+            @if(request.getQueryString("id") == None) {
+                <form method="post" action='@routes.UserController.addCrypto()'  class="wallet-form">
+                } else {
+                <form method="post" action='@routes.UserController.editCrypto()' class="wallet-form">
+                    <input type="hidden" name="cryptoId" value="@crypto.id">
+                    }
+                    <div class="form-group">
+                        <label class="wallet-form-label" for="name">Name</label>
+                        <input class="form-control" type="text" name="name" @if(cryptoForm("name").value != None) {value="@cryptoForm("name").value" } >
+                        @if(cryptoForm != null) {
+                            @for(error <- cryptoForm("name").errors) {
+                                <span class="my-error">@error.messages</span>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label class="wallet-form-label" for="price">Price</label>
+                        <input class="form-control" type="text" name="price" @if(cryptoForm("price").value != None) {value="@cryptoForm("price").value" }>
+                        @if(cryptoForm != null) {
+                            @for(error <- cryptoForm("price").errors) {
+                                <span class="my-error">@error.messages</span>
+                            }
+                        }
+                    </div>
+                    <div class="form-group">
+                        @if(request.getQueryString("id") == None) {
+                            <input class="wallet-buy-submit" type="submit" value="Buy crypto">
+                        } else {
+                            <input class="wallet-buy-submit" type="submit" value="Edit crypto">
+                        }
+                    </div>
+                </form>
+        </article>
+    </section>
 }

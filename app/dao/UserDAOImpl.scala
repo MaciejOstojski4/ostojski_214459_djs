@@ -60,7 +60,10 @@ class UserDAOImpl @Inject()(dbConfigProvider: DatabaseConfigProvider) extends Us
 
   override def addCrypto(crypto: Crypto): Future[String] = {
     db.run(cryptos += crypto).map(res => "Crypto successfully added").recover {
-      case ex: Exception => ex.getCause.getMessage
+      case ex: Exception => {
+        println(ex)
+        ex.getCause.getMessage
+      }
     }
   }
 
