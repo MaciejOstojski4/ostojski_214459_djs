@@ -1,0 +1,62 @@
+@(cryptos: Seq[Crypto], cryptoForm: Form[models.CryptoFormData], crypto: Crypto)(implicit request: RequestHeader, messages: Messages)
+@main(Messages("app.name")) {
+    <a href="/logout">Logout</a>
+    <h1>User cryptos</h1>
+    @if(request.getQueryString("id") == None) {
+        <form method="post" action='@routes.UserController.addCrypto()'>
+        } else {
+        <form method="post" action='@routes.UserController.editCrypto()'>
+            <input type="hidden" name="cryptoId" value="@crypto.id">
+            }
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" name="name"
+                @if(cryptoForm("name").value != None) {
+                    value="@cryptoForm("name").value" } ></td>
+            @if(cryptoForm != null) {
+                @for(error <- cryptoForm("name").errors) {
+                    <td class="my-error">@error.messages</td>
+                }
+            }
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><input type="text" name="price"
+                @if(cryptoForm("price").value != None) {
+                    value="@cryptoForm("price").value" } ></td>
+            @if(cryptoForm != null) {
+                @for(error <- cryptoForm("price").errors) {
+                    <td class="my-error">@error.messages</td>
+                }
+            }
+        </tr>
+        <tr>
+        @if(request.getQueryString("id") == None) {
+            <td><input class="addButton" type="submit" value="Add crypto"></td>
+        } else {
+            <td><input class="addButton" type="submit" value="Edit crypto"></td>
+        }
+        </tr>
+    </table>
+</form>
+    @if(cryptos.size != 0) {
+        <table class="cryptosTable">
+            <tr>
+                <th>@messages("id")</th>
+                <th>@messages("name")</th>
+                <th>@messages("price")</th>
+                <th>@messages("edit")</th>
+                <th>@messages("delete")</th>
+            </tr>
+            @for(crypto <- cryptos) {
+                <tr>
+                    <td>@crypto.id</td>
+                    <td>@crypto.name</td>
+                    <td>@crypto.price</td>
+                    <td><a href="userCryptos?id=@crypto.id">@messages("edit")</a></td>
+                    <td><a href="deleteCrypto/@crypto.id">@messages("delete")</a></td>
+                </tr>
+            } </table>
+    }
+}

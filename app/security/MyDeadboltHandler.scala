@@ -30,7 +30,7 @@ class MyDeadboltHandler @Inject()(userService: UserService, dynamicResourceHandl
     if (request.session.get("email").nonEmpty) {
       val email = request.session.get("email").get
       val user = Await.result(userService.findByEmail(email), 1.second).get
-      Future(Some(new User(user.id, user.firstName, user.lastName, user.mobile, user.email, user.password)))
+      Future(Some(new User(user.id, user.firstName, user.lastName, user.email, user.password)))
     } else {
       Future(None)
     }

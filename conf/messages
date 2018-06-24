@@ -10,4 +10,14 @@ login = Login
 flash.success = success
 flash.error = error
 
-
+#Labels
+id = Id
+name = Name
+price = price
+edit = Edit
+delete = Delete
+firstname = FirstName
+lastname = LastName
+password = Password
+email = Email
+sign.in = Sign in

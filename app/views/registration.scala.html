@@ -143,34 +143,6 @@
                             }
                         }
                     </tr>
-                    <tr>
-                        <td align="left">
-                            <div class="registration-form" id="mobile_field_label">
-                                <div class="controls col-xs-offset-3 col-xs-9">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-registration"></span></span>
-                                        <strong>@messages("mobile")</strong> :
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        <td align="center">
-                            <div class="registration-form" id="mobile_field_value">
-                                <div class="controls col-xs-offset-3 col-xs-9">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><span class="glyphicon glyphicon-registration"></span></span>
-                                        <input type="tel" id="mobile" name="mobile" value="@registrationForm("mobile").value" placeholder="Mobile" class="form-control input-lg" >
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                        @if(registrationForm != null) {
-                            @for(error <- registrationForm("mobile").errors) {
-                                <td class="my-error">>@error.messages</td>
-                            }
-                        }
-                    </tr>
-
                 </table>
                 <br/>
                 <div class="form-actions controls ynt-btn-xlarge">
@@ -179,5 +151,4 @@
 
             </fieldset>
         </form>
-
     }
